@@ -1,6 +1,6 @@
 venv/
 .env
-
+__pycache__
 chromedriver.exe
 geckodriver.log
 data.txt
