@@ -1,0 +1,6 @@
+venv/
+.env
+
+chromedriver.exe
+geckodriver.log
+data.txt
