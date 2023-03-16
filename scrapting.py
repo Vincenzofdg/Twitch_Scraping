@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from time import sleep
 from math import ceil
-import elem
+import src.elem as elem
 
 env = dotenv_values('.env')
 
@@ -61,14 +61,10 @@ num_of_users = text.replace(",", "")
 
 pages = ceil(int(num_of_users) / 100) + 1
 
-# Page 01
-file = open('data.txt', mode='w')
-file.writelines(
-    'User Name | Stream Time | Peak Viewers | Average Viewers | Twitch Link\n\n')
+users_txt = open('./results/base.txt', mode='w')
 
 for page in range(1, pages):
     next_page = id(elem.next_page)
-    file.writelines(f'\n\n---------------- Page {page} ----------------\n\n')
 
     for i in range(1, 101):
         base = f'//*[@id="tblControl"]/tbody/tr[{i}]'
@@ -77,18 +73,19 @@ for page in range(1, pages):
         peak_viewers = xpath(f'{base}/td[6]/div/div/div')
         avg_viewers = xpath(f'{base}/td[7]/div/div/div')
         twitch_link = xpath(f'{base}/td[12]/a')
-
         link = twitch_link.get_attribute('href')
+
         try:
-            line = f'[{i}] {username.text} | {stream_time.text} | {peak_viewers.text} | {avg_viewers.text} | {link}\n'
-            file.writelines(line)
+            # User_Name-Stream_Time-Peak_Viewers-Average_Viewers-Link+
+            line = f"{username.text}-{stream_time.text}-{peak_viewers.text}-{avg_viewers.text}-{link}+"
+            users_txt.writelines(line)
         except UnicodeEncodeError:
-            line = f'xxxxx | {stream_time.text} | {peak_viewers.text} | {avg_viewers.text} | {link}\n'
-            file.writelines(line)
+            users_txt.writelines('UnicodeEncodeError Name,')
 
     next_page.click()
     sleep(10)  # Timer problematico
 
 
 sleep(15)
+
 web.quit()
