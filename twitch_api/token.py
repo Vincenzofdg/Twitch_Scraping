@@ -1,7 +1,7 @@
 import requests
 
 client_id = "r7wkrhz20rr2kmrwrchwyd74xs1nnb"
-client_secret = "y8b3k3au1ocutt0iiyd9ua5i3m68pk"
+client_secret = "yghcoo6hdbnp81yym8x5oakounod8j"
 
 # URL para fazer a solicitação de token
 url = "https://id.twitch.tv/oauth2/token"

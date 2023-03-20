@@ -29,3 +29,34 @@
   ]
 }
 ```
+
+Para as Pessoas que estiverem transmitindo no momento:
+
+`https://api.twitch.tv/helix/streams?user_id=12345678`
+```json
+{
+  "data": [
+    {
+      "id": "123456789",
+      "user_id": "12345678",
+      "user_name": "twitchusername",
+      "game_id": "1234",
+      "type": "live",
+      "title": "Stream Title",
+      "viewer_count": 1234,
+      "started_at": "2023-03-16T14:30:00Z",
+      "language": "en",
+      "thumbnail_url": "https://link-to-thumbnail-image.jpg",
+      "tag_ids": [
+        "1234",
+        "5678"
+      ],
+      "is_mature": false
+    }
+  ],
+  "pagination": {
+    "cursor": "eyJiIjpudWxsLCJhIjp7Ik9mZnNldCI6MX19"
+  }
+}
+
+```

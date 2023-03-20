@@ -36,7 +36,7 @@ def email_to_xlsx():
         email = user_twitch_api(user[0])
 
         if email:
-            add = [*user, email]
+            add = [*user, f"https://www.twitch.tv/{user}", email]
             excel_infect(add, excel_index)
             excel_index += 1
             print(add)

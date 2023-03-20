@@ -5,4 +5,6 @@ chromedriver.exe
 geckodriver.log
 
 
-reuslts/
+documents/
+
+test.py
