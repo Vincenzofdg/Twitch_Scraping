@@ -1,18 +1,16 @@
 from requests import get
 from dotenv import dotenv_values
 
-env = dotenv_values('.env')
+env = dotenv_values(".env")
 
-headers = {
-    "Authorization": f"Bearer {env['token']}",
-    "Client-ID": env['client_id']
-}
+headers = {"Authorization": f"Bearer {env['token']}", "Client-ID": env["client_id"]}
 
 params = {
-    'first': 100,
-    'language': env['language'],
-    'sort': 'average_viewer_count',
-    'average_viewer_count': f"{env['avg_min']}..{env['avg_max']}"
+    "first": 100,
+    "language": env["language"],
+    "sort": "viewer_count",
+    # 'sort': 'average_viewer_count',
+    # 'average_viewer_count': f"{env['avg_min']}..{env['avg_max']}"
 }
 
 
@@ -24,37 +22,39 @@ def streamers_live():
 
     while True:
         if cursor:
-            params['after'] = cursor
+            params["after"] = cursor
 
-        response = get(env['url_live'], headers=headers, params=params)
+        response = get(env["url_live"], headers=headers, params=params)
 
         if response.status_code == 200:
-            results = response.json()['data']
+            results = response.json()["data"]
             streamers += results
 
-            if 'pagination' in response.json() and 'cursor' in response.json()['pagination']:
-                cursor = response.json()['pagination']['cursor']
+            if (
+                "pagination" in response.json()
+                and "cursor" in response.json()["pagination"]
+            ):
+                cursor = response.json()["pagination"]["cursor"]
             else:
                 break
         else:
-            print('Erro ao fazer solicitação HTTP: ',
-                  response.status_code, response.text)
+            print(
+                "Erro ao fazer solicitação HTTP: ", response.status_code, response.text
+            )
             break
 
     for streamer in streamers:
-        if streamer["is_mature"] is False:
+        if 25 <= streamer["viewer_count"] <= 1000:
             qtd_found += 1
+            streamers_info.append(
+                [
+                    streamer["user_name"],
+                    streamer["viewer_count"],
+                    f"https://www.twitch.tv/{streamer['user_login']}",
+                ]
+            )
 
-            streamers_info.append([
-                streamer['user_name'],
-                streamer['viewer_count'],
-                f"https://www.twitch.tv/{streamer['user_login']}"
-            ])
-
-    return {
-        "Streamers": streamers_info,
-        "Results": qtd_found
-    }
+    return {"Streamers": streamers_info, "Results": qtd_found}
 
 
 # {
