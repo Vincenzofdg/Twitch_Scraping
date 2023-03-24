@@ -3,7 +3,8 @@ from dotenv import dotenv_values
 
 env = dotenv_values(".env")
 
-headers = {"Authorization": f"Bearer {env['token']}", "Client-ID": env["client_id"]}
+headers = {
+    "Authorization": f"Bearer {env['token']}", "Client-ID": env["client_id"]}
 
 params = {
     "first": 100,
@@ -44,7 +45,7 @@ def streamers_live():
             break
 
     for streamer in streamers:
-        if 25 <= streamer["viewer_count"] <= 1000:
+        if int(env['avg_min']) <= streamer["viewer_count"] <= int(env['avg_max']):
             qtd_found += 1
             streamers_info.append(
                 [

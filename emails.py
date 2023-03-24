@@ -15,28 +15,27 @@ def infect(content, line):
     document[f"D{line}"] = content[3]
 
 
-path = "./documents"
+folder = "./documents"
+final_doc = "email.xlsx"
+txt_01 = "fase_01.txt"
+txt_02 = "fase_02.txt"
 
-# Global Indexs:
+infect(["User", "Viewer", "Link", "Email"], 1)
 excel_index = 2
 
+info = open(f"{folder}/info.txt", mode="w")
+
+clear()
+
 # Fase 01 => Twitch API Base Info:
-not_founded_txt = open(f"{path}/01.txt", mode="w")
+not_founded_txt = open(f"{folder}/{txt_01}", mode="w")
 not_founded = 0
 founded = 0
 loop = 1
 
-infect(["User", "Viewer", "Link", "Email"], 1)
-
-print("\nGetting Info...\n")
-
 streamers = streamers_live()
 
-clear()
-
-print("\n" + str(streamers["Results"]) + " Streamers Found!")
-print("\nChecking Streamers Emails\n")
-
+info.writelines(f'Total Streamers: {streamers["Results"]}\n')
 
 for streamer in streamers["Streamers"]:
     porcent = loop / streamers["Results"] * 100
@@ -60,27 +59,33 @@ for streamer in streamers["Streamers"]:
 
     loop += 1
 
-xlsx.save(f"{path}/email_found.xlsx")
+xlsx.save(f"{folder}/{final_doc}")
+not_founded_txt.close()
+
+info.writelines(
+    f'From Twitch API found {founded} emails\n -------------------\n')
 
 clear()
 
 # Fase 02 => Getting Twitch API info and searching on twitter:
-not_founded_txt = open(f"{path}/02.txt", mode="w")
+not_founded_txt = open(f"{folder}/{txt_02}", mode="w")
 not_founded = 0
 founded = 0
 loop = 1
+save_at_50 = 50
 
 # Get emails not founded on fase 01 and turn into an array
-emails = open(f"{path}/01.txt", mode="r")
+emails = open(f"{folder}/{txt_01}", mode="r")
 content = emails.read()
 users_with_no_email = content.split("+")
 users_with_no_email.pop(-1)
+
+info.writelines(f'New Total: {len(users_with_no_email)}')
 
 for user in users_with_no_email:
     porcent = loop / len(users_with_no_email) * 100
     print(f"{porcent:.2f}%: Not Founded: {not_founded} | Founded: {founded}")
     user_array = user.split(",")
-    print(user_array[2])
     link = user_array[2]
     has_on_twitter = twitter(user_array[2], loop)
 
@@ -91,6 +96,14 @@ for user in users_with_no_email:
     else:
         founded += 1
         infect([*user_array, has_on_twitter], excel_index)
+        excel_index += 1
+        if founded == save_at_50:
+            xlsx.save(f"{folder}/{final_doc}")
+            save_at_50 += 20
     loop += 1
 
-xlsx.save(f"{path}/email_found.xlsx")
+xlsx.save(f"{folder}/{final_doc}")
+not_founded_txt.close()
+emails.close()
+
+info.writelines(f'From Twitter found {founded} emails\n -------------------\n')

@@ -6,7 +6,6 @@ from re import search
 from time import sleep
 from .tools import xpath
 
-
 # FireFox settings
 setting = Options()
 setting.add_argument("--disable-extensions")
@@ -48,7 +47,7 @@ def twitter(url, loop):
 
     if twitter_link is False:
         return False
-    
+
     try:
         web.get(twitter_link)
 

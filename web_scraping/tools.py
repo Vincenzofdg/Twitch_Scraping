@@ -2,7 +2,7 @@ from selenium.webdriver.support.ui import WebDriverWait as wait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-limit_time = 18
+limit_time = 12
 
 
 def id(element, browser):
