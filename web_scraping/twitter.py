@@ -3,8 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
 from selenium.common.exceptions import TimeoutException, WebDriverException
 from re import search
-from time import sleep
-from .tools import xpath
+from tools.selenium_functions import xpath, social_link
 
 # FireFox settings
 setting = Options()
@@ -20,36 +19,16 @@ twitch_social_medias_block = "/html/body/div[1]/div/div[2]/div/main/div[1]/div[3
 twitch_not_now = "/html/body/div[1]/div/div/div[1]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div[2]/div/div[2]/div[2]/div[2]/div"
 twitter_about = "/html/body/div[1]/div/div/div[2]/main/div/div/div/div[1]/div/div[3]/div/div/div/div/div[3]/div/div"
 
-
-def use_twitter():
-    try:
-        all_social_media = xpath(twitch_social_medias_block, web)
-        medias = all_social_media.find_elements(By.XPATH, "./*")
-        i = 1
-        for _ in medias:
-            path = f"/html/body/div[1]/div/div[2]/div/main/div[1]/div[3]/div/div/div[1]/div[1]/div[2]/div/section/div[3]/div/div/div/div[1]/div[2]/div/div/div/div/div[2]/div/div/div/div[{i}]/div[1]/div/a"
-            media = xpath(path, web)
-            link = media.get_attribute("href")
-
-            if "twitter" in link:
-                return link
-            else:
-                i += 1
-        return False
-    except TimeoutException:
-        return False
-
-
 def twitter(url, loop):
     web.get(url + "/about")
 
-    twitter_link = use_twitter()
+    link = social_link('twitter', web)
 
-    if twitter_link is False:
+    if link is False:
         return False
 
     try:
-        web.get(twitter_link)
+        web.get(link)
 
         navigation = web.window_handles
         web._switch_to.window(navigation[-1])
