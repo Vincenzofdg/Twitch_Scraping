@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
 from selenium.common.exceptions import TimeoutException, WebDriverException
 from re import search
-from tools.selenium_functions import xpath, social_link
+from helper.selenium_functions import xpath, social_link
 
 # FireFox settings
 setting = Options()

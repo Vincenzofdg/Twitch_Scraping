@@ -5,7 +5,7 @@ from selenium.webdriver.firefox.options import Options
 from selenium.common.exceptions import TimeoutException, WebDriverException
 from re import search
 from time import sleep
-from tools.selenium_functions import xpath, name, social_link
+from helper.selenium_functions import xpath, name, social_link
 from dotenv import dotenv_values
 
 # FireFox settings

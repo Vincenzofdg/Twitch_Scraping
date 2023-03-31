@@ -4,8 +4,5 @@ venv/
 __pycache__
 chromedriver.exe
 geckodriver.log
-
-
-documents/
-
-test.py
+documents/*.txt
+documents/*.xlsx
