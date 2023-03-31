@@ -1,4 +1,3 @@
-
 from openpyxl import Workbook
 from os import system
 from helper.text_functions import inject
@@ -20,9 +19,11 @@ def twitter_scan(txt01, txt02):
     twitter_xlsx = file_02_1.active
 
     not_founded_txt = open(f"./documents/{txt02}", mode="w")
-    not_founded, founded, loop = 0, 0, 1
+    not_founded, founded, loop = 0, 1, 1
 
     system('clear')
+
+    inject(twitter_xlsx, ["User", "Viewer", "Link", "Email"], 1)
 
     print(f'\nScraping Twitter...\n')
 
@@ -55,9 +56,11 @@ def instagram_scan(txt01, txt02):
     instagram_xlsx = file_02_2.active
 
     not_founded_txt = open(f"./documents/{txt02}", mode="w")
-    not_founded, founded, loop = 0, 0, 1
+    not_founded, founded, loop = 0, 1, 1
 
     system('clear')
+
+    inject(instagram_xlsx, ["User", "Viewer", "Link", "Email"], 1)
 
     print(f'\nScraping Instagram...\n')
 
