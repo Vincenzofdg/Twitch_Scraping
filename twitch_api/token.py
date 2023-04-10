@@ -1,4 +1,4 @@
-import requests
+from requests import post
 from dotenv import dotenv_values
 
 env = dotenv_values('.env')
@@ -11,7 +11,7 @@ data = {
 }
 
 # Fazer a solicitação POST
-response = requests.post(env['url_token'], data=data)
+response = post(env['url_token'], data=data)
 
 # Verificar se a solicitação foi bem-sucedida
 if response.status_code == 200:

@@ -2,7 +2,11 @@ venv/
 .venv/
 .env
 __pycache__
-chromedriver.exe
+.DS_Store
 geckodriver.log
+
 documents/*.txt
 documents/*.xlsx
+documents/final/*.xlsx
+
+final_emails.xlsx
