@@ -9,4 +9,5 @@ documents/*.txt
 documents/*.xlsx
 documents/final/*.xlsx
 
-final_emails.xlsx
+result.xlsx
+
