@@ -13,7 +13,7 @@ def base_search(txt):
 
     system('clear')
 
-    inject(twitch_xlsx, ["User", "Viewer", "Link", "Email"], 1)
+    inject(twitch_xlsx, ["User", "Viewers", "Link", "Email"], 1)
 
     print('\nGetting info from Twitch API...\n')
 

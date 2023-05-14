@@ -23,7 +23,7 @@ def twitter_scan(txt01, txt02):
 
     system('clear')
 
-    inject(twitter_xlsx, ["User", "Viewer", "Link", "Email"], 1)
+    inject(twitter_xlsx, ["User", "Viewers", "Link", "Email"], 1)
 
     print(f'\nScraping Twitter...\n')
 
