@@ -1,15 +1,14 @@
 from os import remove
-from helper.day import day
-from datetime import datetime
 from pandas import read_excel, concat, DataFrame
 from numpy import array
+from day import day
 
-# today = datetime.now()
-# day_name = today.strftime('%A')
-# day = day_name.lower()
+base_path = 'documents/base.xlsx'
+# new_path = f'./documents/{day()}.xlsx'
+new_path = f'./documents/twitch_api.xlsx'
 
-base = read_excel('documents/emails.xlsx')
-new_date = read_excel(f'documents/{day()}.xlsx')
+base = read_excel(base_path)
+new_date = read_excel(new_path)
 
 header_model = ['User', 'Viewers', 'Link', 'Email']
 
@@ -62,7 +61,7 @@ for elem in not_passed:
 print(f"New result file generated with {len(passed)}")
 
 file = DataFrame(passed)
-file.to_excel('documents/emails.xlsx', index=False, header=header_model)
+file.to_excel(base_path, index=False, header=header_model)
 
 remove('./documents/all.xlsx')
-remove(f'./documents/{day()}.xlsx')
+remove(new_path)

@@ -1,6 +1,5 @@
 from os import system, remove
 from helper.day import day
-from datetime import datetime
 from pandas import read_excel, concat
 
 def final_result():
@@ -16,10 +15,6 @@ def final_result():
     union = concat([twitch, twitter], axis=0, join="outer")
     union = union.reset_index(drop=True)
 
-    # today = datetime.now()
-    # day_name = today.strftime('%A')
-    # day = day_name.lower()
-
     union.to_excel(f'./documents/{day()}.xlsx', index=False)
 
     system('clear')
@@ -27,7 +22,5 @@ def final_result():
     remove(twitch_path)
     remove(twitter_path)
     # remove(instagram_path)
-
-    print('\n\nAll the operations have been completed.\n\n\n')
 
     return
