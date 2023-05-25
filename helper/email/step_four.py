@@ -5,14 +5,13 @@ from pandas import read_excel, concat
 def final_result():
     twitch_path = "./documents/twitch_api.xlsx"
     twitter_path = "./documents/twitter.xlsx"
-    # instagram_path = "./documents/instagram.xlsx"
+    instagram_path = "./documents/instagram.xlsx"
 
     twitch = read_excel(twitch_path)
     twitter = read_excel(twitter_path)
-    # instagram = read_excel(instagram_path)
+    instagram = read_excel(instagram_path)
 
-    # union = concat([twitch, twitter, instagram], axis=0, join="outer")
-    union = concat([twitch, twitter], axis=0, join="outer")
+    union = concat([twitch, twitter, instagram], axis=0, join="outer")
     union = union.reset_index(drop=True)
 
     union.to_excel(f'./documents/{day()}.xlsx', index=False)

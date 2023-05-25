@@ -6,8 +6,7 @@ from helper.email.step_two import twitter_scan, instagram_scan
 from helper.email.step_four import final_result
 
 info = open(f"./documents/info.txt", mode="w")
-# txts = ["step_01.txt", "step_02_1.txt", "step_02_2.txt"]
-txts = ["step_01.txt"]
+txts = ["step_01.txt", "step_02_1.txt", "step_02_2.txt"]
 
 system('clear')
 
@@ -15,27 +14,27 @@ system('clear')
 step_01 = base_search(txts[0])
 info.writelines(info_line(*step_01))
 
-# system('clear')
+system('clear')
 
-# # 2 Step: Web Scraping
-# step_02_1 = twitter_scan(txts[0], txts[1])
-# info.writelines(info_line(*step_02_1))
+# 2 Step: Web Scraping
+step_02_1 = twitter_scan(txts[0], txts[1])
+info.writelines(info_line(*step_02_1))
 
-# step_02_2 = instagram_scan(txts[1], txts[2])
-# info.writelines(info_line(*step_02_2))
+step_02_2 = instagram_scan(txts[1], txts[2])
+info.writelines(info_line(*step_02_2))
 
 info.close()
 
-# system('clear')
+system('clear')
 
 # 3 Step: Clean
 for txt in txts:
     remove(f'./documents/{txt}')
 
 # 4 Step: all .xslx as one .xslx file
-# final_result()
+final_result()
 
-# system('clear')
+system('clear')
 
 # 5 Step: Merge all documents into one
 run(['python', 'helper/merge_docs.py'])
